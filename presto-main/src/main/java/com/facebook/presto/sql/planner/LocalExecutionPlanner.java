@@ -99,6 +99,9 @@ import com.facebook.presto.spiller.SpillerFactory;
 import com.facebook.presto.split.MappedRecordSet;
 import com.facebook.presto.split.PageSinkManager;
 import com.facebook.presto.split.PageSourceProvider;
+import com.facebook.presto.sql.DynamicFilter;
+import com.facebook.presto.sql.DynamicFilterUtils;
+import com.facebook.presto.sql.DynamicFilterUtils.ExtractDynamicFiltersResult;
 import com.facebook.presto.sql.gen.ExpressionCompiler;
 import com.facebook.presto.sql.gen.JoinCompiler;
 import com.facebook.presto.sql.gen.JoinFilterFunctionCompiler;
@@ -1104,9 +1107,19 @@ public class LocalExecutionPlanner
             }
             Map<Symbol, Integer> outputMappings = outputMappingsBuilder.build();
 
+            Optional<ExtractDynamicFiltersResult> extractDynamicFilterResult = filterExpression.map(DynamicFilterUtils::extractDynamicFilters);
+            Optional<Expression> staticFilters = extractDynamicFilterResult.map(ExtractDynamicFiltersResult::getStaticFilters);
+
+            // TODO: Process dynamic filters
+            Optional<Set<DynamicFilter>> dynamicFilters = extractDynamicFilterResult.map(ExtractDynamicFiltersResult::getDynamicFilters);
+
+            if (dynamicFilters.isPresent() && !dynamicFilters.get().isEmpty()) {
+                log.debug("[TableScan] Dynamic filters: %s", dynamicFilters);
+            }
+
             // compiler uses inputs instead of symbols, so rewrite the expressions first
             SymbolToInputRewriter symbolToInputRewriter = new SymbolToInputRewriter(sourceLayout);
-            Optional<Expression> rewrittenFilter = filterExpression.map(symbolToInputRewriter::rewrite);
+            Optional<Expression> rewrittenFilter = staticFilters.map(symbolToInputRewriter::rewrite);
 
             List<Expression> rewrittenProjections = new ArrayList<>();
             for (Symbol symbol : outputSymbols) {
@@ -1488,6 +1501,13 @@ public class LocalExecutionPlanner
             List<JoinNode.EquiJoinClause> clauses = node.getCriteria();
             if (node.isCrossJoin()) {
                 return createNestedLoopJoin(node, context);
+            }
+
+            Assignments dynamicFilters = node.getDynamicFilterAssignments();
+
+            // TODO handle pruning based on dynamic filters from joins above
+            if (!dynamicFilters.getMap().isEmpty()) {
+                log.debug("[Join] Dynamic filters: %s", dynamicFilters.getMap());
             }
 
             List<Symbol> leftSymbols = Lists.transform(clauses, JoinNode.EquiJoinClause::getLeft);
