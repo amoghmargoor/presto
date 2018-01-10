@@ -269,7 +269,7 @@ public class JoinNode
 
     public JoinNode withDistributionType(DistributionType distributionType)
     {
-        return new JoinNode(getId(), type, left, right, criteria, outputSymbols, filter, leftHashSymbol, rightHashSymbol, Optional.of(distributionType));
+        return new JoinNode(getId(), type, left, right, criteria, outputSymbols, filter, leftHashSymbol, rightHashSymbol, Optional.of(distributionType), dynamicFilterAssignments);
     }
 
     public boolean isCrossJoin()
