@@ -1045,7 +1045,7 @@ public class PlanPrinter
                 DynamicFilterExpression filter = iterator.next();
                 result.append(filter.getDfSymbol());
                 result.append(" -> ");
-                result.append(filter.getProbeSymbolReference());
+                result.append(filter.getProbeExpression());
                 if (iterator.hasNext()) {
                     result.append(", ");
                 }

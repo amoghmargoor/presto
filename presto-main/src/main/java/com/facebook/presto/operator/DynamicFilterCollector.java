@@ -226,7 +226,7 @@ public class DynamicFilterCollector
     {
         ImmutableMap.Builder<String, Symbol> resultBuilder = ImmutableMap.builder();
         for (DynamicFilterExpression dynamicFilter : dynamicFilters) {
-            Expression expression = dynamicFilter.getProbeSymbolReference();
+            Expression expression = dynamicFilter.getProbeExpression();
             if (!(expression instanceof SymbolReference)) {
                 continue;
             }

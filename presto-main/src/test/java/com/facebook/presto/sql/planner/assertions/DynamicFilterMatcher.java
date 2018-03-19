@@ -129,7 +129,7 @@ public class DynamicFilterMatcher
 
         ImmutableMap.Builder<Symbol, Symbol> mappings = ImmutableMap.builder();
         for (DynamicFilterExpression df : equalityDfs) {
-            Symbol left = Symbol.from(df.getProbeSymbolReference());
+            Symbol left = Symbol.from(df.getProbeExpression());
 
             if (!df.getSourceId().equals(expectedSourceId)) {
                 return null;

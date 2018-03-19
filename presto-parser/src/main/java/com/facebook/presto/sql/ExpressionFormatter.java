@@ -321,7 +321,7 @@ public final class ExpressionFormatter
         {
             return "\"$INTERNAL$DYNAMIC_FILTER\"(" +
                     formatIdentifier(node.getType().name()) + ", " +
-                    formatIdentifier(node.getProbeSymbolReference().getName()) + ", " +
+                    node.getProbeExpression().toString() + ", " +
                     formatIdentifier(node.getDfSymbol()) + ", " +
                     formatIdentifier(node.getSourceId()) + ")";
         }

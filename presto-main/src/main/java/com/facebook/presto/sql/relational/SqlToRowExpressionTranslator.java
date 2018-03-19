@@ -392,8 +392,8 @@ public final class SqlToRowExpressionTranslator
             // In order to make PushDown work for DynamicFilters, we have to make DynamicFilterExpression comparable in context of ExpressionEquivalence
             // To avoid implementing DynamicFilterExpression RowExpression we model DynamicFilterExpression as ComparisionExpression,
             // which for ExpressionEquivalence will work well enough.
-            RowExpression left = process(node.getProbeSymbolReference(), context);
-            RowExpression right = constant(node.getDfSymbol(), getType(node.getProbeSymbolReference()));
+            RowExpression left = process(node.getProbeExpression(), context);
+            RowExpression right = constant(node.getDfSymbol(), getType(node.getProbeExpression()));
 
             return call(
                     comparisonExpressionSignature(node.getType(), left.getType(), right.getType()),

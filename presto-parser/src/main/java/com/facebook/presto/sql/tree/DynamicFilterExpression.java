@@ -26,15 +26,15 @@ public class DynamicFilterExpression
 {
     private final String sourceId;
     private final ComparisonExpressionType type;
-    private final SymbolReference probeSymbolReference;
+    private final Expression probeExpression;
     private final String dfSymbol;
 
-    public DynamicFilterExpression(String sourceId, ComparisonExpressionType type, SymbolReference probeSymbolReference, String dfSymbol)
+    public DynamicFilterExpression(String sourceId, ComparisonExpressionType type, Expression probeExpression, String dfSymbol)
     {
         super(Optional.empty());
         this.sourceId = requireNonNull(sourceId, "sourceId is null");
         this.type = requireNonNull(type, "type is null");
-        this.probeSymbolReference = requireNonNull(probeSymbolReference, "probeSymbolReference is null");
+        this.probeExpression = requireNonNull(probeExpression, "probeExpression is null");
         this.dfSymbol = requireNonNull(dfSymbol, "dfSymbol is null");
     }
 
@@ -48,9 +48,9 @@ public class DynamicFilterExpression
         return dfSymbol;
     }
 
-    public SymbolReference getProbeSymbolReference()
+    public Expression getProbeExpression()
     {
-        return probeSymbolReference;
+        return probeExpression;
     }
 
     public ComparisonExpressionType getType()
@@ -67,7 +67,7 @@ public class DynamicFilterExpression
     @Override
     public List<? extends Node> getChildren()
     {
-        return ImmutableList.of(probeSymbolReference);
+        return ImmutableList.of(probeExpression);
     }
 
     @Override
@@ -82,13 +82,13 @@ public class DynamicFilterExpression
         DynamicFilterExpression dfExpression = (DynamicFilterExpression) o;
         return Objects.equals(sourceId, dfExpression.sourceId) &&
                 Objects.equals(type, dfExpression.type) &&
-                Objects.equals(probeSymbolReference, dfExpression.probeSymbolReference) &&
+                Objects.equals(probeExpression, dfExpression.probeExpression) &&
                 Objects.equals(dfSymbol, dfExpression.dfSymbol);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(sourceId, type, probeSymbolReference, dfSymbol);
+        return Objects.hash(sourceId, type, probeExpression, dfSymbol);
     }
 }

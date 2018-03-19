@@ -458,9 +458,9 @@ public class ExpressionAnalyzer
         @Override
         protected Type visitDynamicFilterExpression(DynamicFilterExpression node, StackableAstVisitorContext<Context> context)
         {
-            expressionTypes.put(NodeRef.of(node.getProbeSymbolReference()), process(node.getProbeSymbolReference(), context));
+            expressionTypes.put(NodeRef.of(node.getProbeExpression()), process(node.getProbeExpression(), context));
             OperatorType operatorType = OperatorType.valueOf(node.getType().name());
-            return getOperator(context, node, operatorType, node.getProbeSymbolReference(), node.getProbeSymbolReference());
+            return getOperator(context, node, operatorType, node.getProbeExpression(), node.getProbeExpression());
         }
 
         @Override
