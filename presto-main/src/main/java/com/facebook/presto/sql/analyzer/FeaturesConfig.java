@@ -97,7 +97,7 @@ public class FeaturesConfig
     private boolean parseDecimalLiteralsAsDouble = true;
 
     private Duration iterativeOptimizerTimeout = new Duration(3, MINUTES); // by default let optimizer wait a long time in case it retrieves some data from ConnectorMetadata
-    private boolean dynamicPartitionPruningEnabled;
+    private boolean dynamicFilteringEnabled;
 
     private DataSize filterAndProjectMinOutputPageSize = new DataSize(25, KILOBYTE);
     private int filterAndProjectMinOutputPageRowCount = 256;
@@ -543,15 +543,15 @@ public class FeaturesConfig
         return this;
     }
 
-    public boolean isDynamicPartitionPruningEnabled()
+    public boolean isDynamicFilteringEnabled()
     {
-        return dynamicPartitionPruningEnabled;
+        return dynamicFilteringEnabled;
     }
 
     @Config("experimental.dynamic-partition-pruning-enabled")
-    public FeaturesConfig setDynamicPartitionPruningEnabled(boolean value)
+    public FeaturesConfig setDynamicFilteringEnabled(boolean value)
     {
-        this.dynamicPartitionPruningEnabled = value;
+        this.dynamicFilteringEnabled = value;
         return this;
     }
 

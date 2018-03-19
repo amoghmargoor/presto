@@ -26,7 +26,7 @@ import org.testng.annotations.Test;
 
 import java.util.Optional;
 
-import static com.facebook.presto.SystemSessionProperties.DYNAMIC_PARTITION_PRUNING;
+import static com.facebook.presto.SystemSessionProperties.DYNAMIC_FILTERING;
 import static com.facebook.presto.spi.type.BigintType.BIGINT;
 import static com.facebook.presto.sql.planner.assertions.PlanMatchPattern.equiJoinClause;
 import static com.facebook.presto.sql.planner.assertions.PlanMatchPattern.join;
@@ -41,7 +41,7 @@ public class TestApplyDynamicFilters
     @BeforeClass
     public void setUp()
     {
-        tester = new RuleTester(ImmutableMap.of(DYNAMIC_PARTITION_PRUNING, "true"));
+        tester = new RuleTester(ImmutableMap.of(DYNAMIC_FILTERING, "true"));
     }
 
     @AfterClass(alwaysRun = true)

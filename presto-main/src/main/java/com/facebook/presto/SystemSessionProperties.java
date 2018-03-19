@@ -85,7 +85,7 @@ public final class SystemSessionProperties
     public static final String FORCE_SINGLE_NODE_OUTPUT = "force_single_node_output";
     public static final String FILTER_AND_PROJECT_MIN_OUTPUT_PAGE_SIZE = "filter_and_project_min_output_page_size";
     public static final String FILTER_AND_PROJECT_MIN_OUTPUT_PAGE_ROW_COUNT = "filter_and_project_min_output_page_row_count";
-    public static final String DYNAMIC_PARTITION_PRUNING = "dynamic_partition_pruning";
+    public static final String DYNAMIC_FILTERING = "dynamic_partition_pruning";
 
     private final List<PropertyMetadata<?>> sessionProperties;
 
@@ -400,9 +400,9 @@ public final class SystemSessionProperties
                         featuresConfig.getFilterAndProjectMinOutputPageRowCount(),
                         false),
                 booleanSessionProperty(
-                        DYNAMIC_PARTITION_PRUNING,
-                        "Enable dynamic partition pruning",
-                        featuresConfig.isDynamicPartitionPruningEnabled(),
+                        DYNAMIC_FILTERING,
+                        "Enable dynamic filtering",
+                        featuresConfig.isDynamicFilteringEnabled(),
                         false));
     }
 
@@ -650,6 +650,6 @@ public final class SystemSessionProperties
 
     public static boolean isDynamicPartitionPruningEnabled(Session session)
     {
-        return session.getSystemProperty(DYNAMIC_PARTITION_PRUNING, Boolean.class);
+        return session.getSystemProperty(DYNAMIC_FILTERING, Boolean.class);
     }
 }

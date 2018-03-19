@@ -87,7 +87,7 @@ public class TestFeaturesConfig
                 .setFilterAndProjectMinOutputPageSize(new DataSize(25, KILOBYTE))
                 .setFilterAndProjectMinOutputPageRowCount(256)
                 .setHistogramGroupImplementation(NEW)
-                .setDynamicPartitionPruningEnabled(false));
+                .setDynamicFilteringEnabled(false));
     }
 
     @Test
@@ -188,7 +188,7 @@ public class TestFeaturesConfig
                 .setFilterAndProjectMinOutputPageSize(new DataSize(1, MEGABYTE))
                 .setFilterAndProjectMinOutputPageRowCount(2048)
                 .setHistogramGroupImplementation(LEGACY)
-                .setDynamicPartitionPruningEnabled(true);
+                .setDynamicFilteringEnabled(true);
         assertFullMapping(properties, expected);
     }
 

@@ -41,7 +41,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import static com.facebook.presto.SystemSessionProperties.DYNAMIC_PARTITION_PRUNING;
+import static com.facebook.presto.SystemSessionProperties.DYNAMIC_FILTERING;
 import static com.facebook.presto.spi.predicate.Domain.singleValue;
 import static com.facebook.presto.spi.type.BigintType.BIGINT;
 import static com.facebook.presto.spi.type.VarcharType.createVarcharType;
@@ -80,7 +80,7 @@ public class TestLogicalPlanner
     TestLogicalPlanner()
     {
         // in order to test testUncorrelatedSubqueries with Dynamic Filtering, enable it
-        super(ImmutableMap.of(DYNAMIC_PARTITION_PRUNING, "true"));
+        super(ImmutableMap.of(DYNAMIC_FILTERING, "true"));
     }
 
     @Test
